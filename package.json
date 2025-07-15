@@ -1,0 +1,26 @@
+{
+  "name": "fullstack-chat-express",
+  "version": "1.0.0",
+  "description": "fullstack-chat-express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mostafa918M/fullstack-chat-express.git"
+  },
+  "author": "mostafa-mahmoud",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mostafa918M/fullstack-chat-express/issues"
+  },
+  "homepage": "https://github.com/Mostafa918M/fullstack-chat-express#readme",
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.3",
+    "nodemon": "^3.1.10"
+  }
+}

@@ -16,13 +16,15 @@ function generateAccessToken(user) {
   return jwt.sign(payload, ACCESS_TOKEN_SECRET, { expiresIn: "30d" });
 }
 
-function newAccessToken(req, res) {
+async function newAccessToken(req, res) {
   const token = req.cookies.refresh_token;
   if (!token) {
     return res.status(401).json({ message: "No refresh token" });
   }
   try {
     jwt.verify(token, REFRESH_TOKEN_SECRET);
+    const user = await User.findById(decoded.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
     const newAccessToken = generateAccessToken(User);
     res.json({ accesToken: newAccessToken });
   } catch {

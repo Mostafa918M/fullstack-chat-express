@@ -18,15 +18,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     default: "/public/images/default-profile.jpg",
   },
-  joinDate: {
-    type: Date,
-    default: Date.now,
-  },
   roles: {
     type: String,
     enum: ["user", "admin"],
     default: "user",
-  },
-});
+  }
+},{timestamps:true});
 
 module.exports = mongoose.model("User", userSchema);

@@ -4,7 +4,7 @@ const passwordValidator = require("../utils/passwordValidator");
 const { generateAccessToken, generateRefrechToken } = require("../utils/jwt");
 const { validationResult } = require("express-validator");
 
-const signup = async (req, res) => {
+const signup = async (req, res,next) => {
   try {
     const { username, email, password } = req.body;
     const errors = validationResult(req);
@@ -34,7 +34,7 @@ const signup = async (req, res) => {
     await newUser.save();
     const accessToken = generateAccessToken(newUser);
     const refrechToken = generateRefrechToken(newUser);
-
+  console.log(accessToken)
     res.cookie("refresh_token", refrechToken, {
       httpOnly: true,
       secure: true,
@@ -51,13 +51,13 @@ const signup = async (req, res) => {
       accessToken,
     });
   } catch (error) {
-    console.error("Signup error:", error);
+    next(error)
     return res
       .status(500)
       .json({ message: "Server error. Please try again later." });
   }
 };
-const signin = async (req, res) => {
+const signin = async (req, res,next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -79,6 +79,7 @@ const signin = async (req, res) => {
     }
     const accessToken = generateAccessToken(user);
     const refrechToken = generateRefrechToken(user);
+    console.log(accessToken)
     res.cookie("refresh_token", refrechToken, {
       httpOnly: true,
       secure: true,
@@ -95,7 +96,7 @@ const signin = async (req, res) => {
       accessToken,
     });
   } catch (error) {
-    console.error("Signin Error:", error);
+    next(error)
     return res
       .status(500)
       .json({ message: "Server error. Please try again later." });
